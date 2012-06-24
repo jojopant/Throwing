@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Throwing</string>
+    <string name="select_level">Select Level</string>
+    <string name="easy">Easy</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
+    <string name="help">Help</string>
+    <string name="quit">quit</string>
+    <string name="title">Refreshing!\nPie-Throwing</string>
+    <string name="best">Best Score</string>
+    <string name="rank">Rank</string>
+    <string name="select_scene">Select Stage</string>
+    <string name="random">Random</string>
+    <string name="school">School</string>
+    <string name="office">Office</string>
+    <string name="train">Train</string>
+    <string name="back">Back</string>
+    <string name="wanted">WANTED!</string>
+    <string name="ok">OK</string>
+
+</resources>

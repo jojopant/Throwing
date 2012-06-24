@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/select_back"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_scene" />
+
+        <Button
+            android:id="@+id/scene_random"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/random"
+            android:textSize="15sp" 
+            android:onClick="random"/>
+
+        <Button
+            android:id="@+id/scene_school"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/school"
+            android:textSize="15sp" 
+            android:onClick="school"/>
+
+        <Button
+            android:id="@+id/scene_office"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/office"
+            android:textSize="15sp" 
+            android:onClick="office"/>
+
+        <Button
+            android:id="@+id/scene_train"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/train"
+            android:textSize="15sp" 
+            android:onClick="train"/>
+
+        <Button
+            android:id="@+id/scene_back"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="@string/back"
+            android:textSize="15sp" 
+            android:onClick="back"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wanted" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
