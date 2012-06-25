@@ -41,7 +41,6 @@ public class MainView extends SurfaceView implements Callback,Runnable{
 		window2 = new Window(image, context, Position.center);
         window1 = new Window(image, context, Position.left);
         window3 = new Window(image, context, Position.right);
-		// 设置画笔
 		backPaint = new Paint();
 		backPaint.setColor(Color.BLACK);
 		
@@ -69,7 +68,6 @@ public class MainView extends SurfaceView implements Callback,Runnable{
 		}
 		
 	}
-	//开始游戏主线程
 	public void start()
 	{
 		if(gameThread == null)
@@ -78,7 +76,6 @@ public class MainView extends SurfaceView implements Callback,Runnable{
 		gameThread.start();
 		}
 	}
-	//停止游戏主线程
 	public void stop()
 	{
 		isGame = false;
@@ -92,12 +89,10 @@ public class MainView extends SurfaceView implements Callback,Runnable{
 			}
 		}
 	}
-	//输入判断
 	public void input()
 	{
 		//hero.nextFrame();
 	}
-	//逻辑判断
 	public void logic()
 	{
 		
@@ -118,7 +113,6 @@ public class MainView extends SurfaceView implements Callback,Runnable{
 			}
 		}
 	}
-	//画图
 	public void paint(Canvas canvas)
 	{
 		canvas.drawRect(0, 0, getWidth(), getHeight(), backPaint);
