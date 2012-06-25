@@ -3,6 +3,7 @@ package com.mic.throwing;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class MainActivity extends Activity {
@@ -23,6 +24,7 @@ public class MainActivity extends Activity {
     
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Log.i("dj", "Activity::onTouchEvent");
         if (heartBeatListener != null) {
             heartBeatListener.onTouch(event);
         }

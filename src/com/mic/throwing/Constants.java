@@ -14,5 +14,11 @@ public class Constants{
     static int SCENE_SCHOOL = 2;
     static int SCENE_OFFICE = 3;
     static int SCENE_TRAIN = 4;
+    
+    static int EVENT_UNKNOWN=0;
+    static int EVENT_MOVE=1;
+    static int EVENT_FLY=2;
+    static int EVENT_COLLISION=3;
+    
    
 }

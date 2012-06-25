@@ -76,7 +76,7 @@ public class MainView extends SurfaceView implements Callback {
     
     public void start() {
         if (heart == null) {
-            heart = new Heart(this);
+            heart = new Heart(this,plate);
             ((MainActivity) getContext()).registerHeartBeatListrener(heart);
             heart.start();
         }
