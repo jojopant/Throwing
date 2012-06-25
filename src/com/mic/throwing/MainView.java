@@ -39,6 +39,7 @@ public class MainView extends SurfaceView implements Callback {
         
         // window2 = new Window(image, context, Position.center);
         window1 = new Sprite(image, 100, 100);
+        
         // window3 = new Window(image, context, Position.right);
         backPaint = new Paint();
         backPaint.setColor(Color.BLACK);

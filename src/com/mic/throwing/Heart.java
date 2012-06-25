@@ -1,41 +1,68 @@
 package com.mic.throwing;
 
+import java.util.ArrayList;
+
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 
-public class Heart extends Thread {
-    public boolean      beating = true;
-    private SurfaceView body;
+import com.mic.throwing.MainActivity.HeartBeatListener;
+import com.mic.throwing.events.MicThrowGameEvent;
+
+public class Heart extends Thread implements HeartBeatListener {
+    public boolean                       beating = true;
+    private SurfaceView                  body;
+    private ArrayList<MicThrowGameEvent> events;
     
     public Heart(SurfaceView view) {
         body = view;
+        events = new ArrayList<MicThrowGameEvent>();
     }
     
     @Override
     public void run() {
         super.run();
         while (beating) {
-            input();
-            logic();
+            dispatchInputEvents();
+            dispatchUpdateSprites();
+            dispatchCollision();
             doDraw();
             try {
                 Thread.sleep(1000 / 60);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
         
     }
     
-    public void input() {
-        // hero.nextFrame();
+    private void dispatchCollision() {
+        // TODO Auto-generated method stub
+        
     }
     
-    public void logic() {
+    private void dispatchUpdateSprites() {
+        // TODO Auto-generated method stub
         
+    }
+    
+    private void dispatchInputEvents() {
+        for (MicThrowGameEvent event : events) {
+            // TODO dispatch event to handler
+            // TODO delete dispatched event from events
+        }
     }
     
     public void doDraw() {
         ((MainView) body).doDraw();
+    }
+    
+    @Override
+    public void onTouch(MotionEvent event) {
+        // TODO using event to build MicThrowGameEvents
+        events.add(parseEvent(event));
+    }
+    
+    private MicThrowGameEvent parseEvent(MotionEvent event) {
+        return new MicThrowGameEvent();
     }
 }
