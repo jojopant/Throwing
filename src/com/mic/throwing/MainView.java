@@ -27,7 +27,7 @@ public class MainView extends SurfaceView implements Callback {
     Sprite        window1     = null;
     Sprite        window2     = null;
     Sprite        window3     = null;
-    Sprite plate =null;
+    Sprite        plate       = null;
     
     Paint         backPaint   = null;
     Paint         forePaint   = null;
@@ -42,13 +42,14 @@ public class MainView extends SurfaceView implements Callback {
         getHolder().addCallback(this);
         holder = this.getHolder();
         Point size = calculateCenterX(context);
-
+        
         windowWidth = size.x / 4;
         windowHeight = size.y / 3;
         Bitmap imageTemp = BitmapFactory.decodeResource(getResources(),
             R.drawable.window);
-        Bitmap image = Bitmap.createScaledBitmap(imageTemp, windowWidth, windowHeight, true);
-
+        Bitmap image = Bitmap.createScaledBitmap(imageTemp, windowWidth,
+            windowHeight, true);
+        
         window2 = new Sprite(image, windowWidth, windowHeight);
         window2.setPosition(centerX - windowWidth / 2, 20);
         window1 = new Sprite(image, windowWidth, windowHeight);
@@ -60,10 +61,11 @@ public class MainView extends SurfaceView implements Callback {
         
         imageTemp = BitmapFactory.decodeResource(getResources(),
             R.drawable.plate);
-        image = Bitmap.createScaledBitmap(imageTemp, windowWidth/3, windowHeight/3, true);
-        plate = new Sprite(image, windowWidth/3, windowHeight/3);
-        plate.setPosition(centerX - windowWidth / 6,
-            size.y-windowHeight/3-20);
+        image = Bitmap.createScaledBitmap(imageTemp, windowWidth / 3,
+            windowHeight / 3, true);
+        plate = new Sprite(image, windowWidth / 3, windowHeight / 3);
+        plate.setPosition(centerX - windowWidth / 6, size.y - windowHeight / 3
+            - 20);
         backPaint = new Paint();
         backPaint.setColor(Color.BLACK);
         
@@ -75,6 +77,7 @@ public class MainView extends SurfaceView implements Callback {
     public void start() {
         if (heart == null) {
             heart = new Heart(this);
+            ((MainActivity) getContext()).registerHeartBeatListrener(heart);
             heart.start();
         }
     }
@@ -110,12 +113,12 @@ public class MainView extends SurfaceView implements Callback {
         window2.paint(canvas, forePaint);
         window3.paint(canvas, forePaint);
         plate.paint(canvas, forePaint);
-       // plate.move(x, y);
+        // plate.move(x, y);
     }
     
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
-            int height) {
+        int height) {
         // TODO Auto-generated method stub
         
     }
@@ -132,6 +135,7 @@ public class MainView extends SurfaceView implements Callback {
         stop();
         
     }
+    
     public Point calculateCenterX(Context context) {
         Point size = new Point();
         ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))

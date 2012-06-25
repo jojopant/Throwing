@@ -16,6 +16,7 @@ public class Heart extends Thread implements HeartBeatListener {
     public Heart(SurfaceView view) {
         body = view;
         events = new ArrayList<MicThrowGameEvent>();
+        
     }
     
     @Override
@@ -63,6 +64,7 @@ public class Heart extends Thread implements HeartBeatListener {
     }
     
     private MicThrowGameEvent parseEvent(MotionEvent event) {
+        
         return new MicThrowGameEvent();
     }
 }
