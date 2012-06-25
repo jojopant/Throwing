@@ -10,133 +10,102 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
-import com.mic.throwing.sprite.Window;
-import com.mic.throwing.sprite.Window.Position;
+import com.mic.throwing.sprite.Sprite;
 
-public class MainView extends SurfaceView implements Callback,Runnable{
-    int screenWidth;
-	int keyCode = 0;
-	String keyAction = "";
-	Thread gameThread = null;
-	boolean isGame = true;
-	SurfaceHolder holder = null;
-	Window window1 = null;
-	Window window2 = null;
-	Window window3 = null;
-	Paint backPaint = null;
-	Paint forePaint = null;
-	int i=0;
-	
-	public int downb_seq[]={9,10,11,12};
-	public MainView(Context context) {
-		super(context);
-		// TODO Auto-generated constructor stub
-
-		setFocusable(true);
-		getHolder().addCallback(this);
-		holder = this.getHolder();
-		Bitmap imageTemp = BitmapFactory.decodeResource(getResources(), R.drawable.window);
-		Bitmap image = Bitmap.createScaledBitmap(imageTemp, 200, 170, true);
-		
-		window2 = new Window(image, context, Position.center);
-        window1 = new Window(image, context, Position.left);
-        window3 = new Window(image, context, Position.right);
-		backPaint = new Paint();
-		backPaint.setColor(Color.BLACK);
-		
-		forePaint = new Paint();
-		forePaint.setColor(Color.BLUE);
-		
-		
-		
-		
-	}
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		while(isGame)
-		{
-			input();
-			logic();
-			doDraw();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
-		}
-		
-	}
-	public void start()
-	{
-		if(gameThread == null)
-		{
-		gameThread = new Thread(this);
-		gameThread.start();
-		}
-	}
-	public void stop()
-	{
-		isGame = false;
-		if(gameThread != null)
-		{
-			try {
-				gameThread.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	public void input()
-	{
-		//hero.nextFrame();
-	}
-	public void logic()
-	{
-		
-	}
-	public void doDraw()
-	{
-		Canvas c = null;
-		try
-		{
-		c = holder.lockCanvas();
-		synchronized (holder) {
-			paint(c);
-		}
-		}finally{
-			if(c != null)
-			{
-			holder.unlockCanvasAndPost(c);
-			}
-		}
-	}
-	public void paint(Canvas canvas)
-	{
-		canvas.drawRect(0, 0, getWidth(), getHeight(), backPaint);
-		window1.paint(canvas, forePaint);
-		window2.paint(canvas, forePaint);
-		window3.paint(canvas, forePaint);
-	}
-	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void surfaceCreated(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-		start();
-		
-	}
-	@Override
-	public void surfaceDestroyed(SurfaceHolder holder) {
-		// TODO Auto-generated method stub
-		stop();
-		
-	}
-
+public class MainView extends SurfaceView implements Callback {
+    int           screenWidth;
+    int           keyCode     = 0;
+    String        keyAction   = "";
+    Heart         heart       = null;
+    SurfaceHolder holder      = null;
+    Sprite        window1     = null;
+    // Window window2 = null;
+    // Window window3 = null;
+    Paint         backPaint   = null;
+    Paint         forePaint   = null;
+    int           i           = 0;
+    
+    public int    downb_seq[] = { 9, 10, 11, 12 };
+    
+    public MainView(Context context) {
+        super(context);
+        
+        setFocusable(true);
+        getHolder().addCallback(this);
+        holder = this.getHolder();
+        Bitmap imageTemp = BitmapFactory.decodeResource(getResources(),
+                R.drawable.window);
+        Bitmap image = Bitmap.createScaledBitmap(imageTemp, 200, 170, true);
+        
+        // window2 = new Window(image, context, Position.center);
+        window1 = new Sprite(image, 100, 100);
+        // window3 = new Window(image, context, Position.right);
+        backPaint = new Paint();
+        backPaint.setColor(Color.BLACK);
+        
+        forePaint = new Paint();
+        forePaint.setColor(Color.BLUE);
+        
+    }
+    
+    public void start() {
+        if (heart == null) {
+            heart = new Heart(this);
+            heart.start();
+        }
+    }
+    
+    public void stop() {
+        heart.beating = false;
+        if (heart != null) {
+            try {
+                heart.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public void doDraw() {
+        Canvas c = null;
+        try {
+            c = holder.lockCanvas();
+            synchronized (holder) {
+                paint(c);
+            }
+        } finally {
+            if (c != null) {
+                holder.unlockCanvasAndPost(c);
+            }
+        }
+    }
+    
+    public void paint(Canvas canvas) {
+        canvas.drawRect(0, 0, getWidth(), getHeight(), backPaint);
+        window1.paint(canvas, forePaint);
+        window1.move(i++, i++);
+        // window2.paint(canvas, forePaint);
+        // window3.paint(canvas, forePaint);
+    }
+    
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width,
+            int height) {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        start();
+        
+    }
+    
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        // TODO Auto-generated method stub
+        stop();
+        
+    }
+    
 }
