@@ -6,9 +6,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.view.WindowManager;
 
 import com.mic.throwing.sprite.Sprite;
 
@@ -18,9 +20,15 @@ public class MainView extends SurfaceView implements Callback {
     String        keyAction   = "";
     Heart         heart       = null;
     SurfaceHolder holder      = null;
+    
+    int           centerX;
+    int           windowWidth;
+    int           windowHeight;
     Sprite        window1     = null;
-    // Window window2 = null;
-    // Window window3 = null;
+    Sprite        window2     = null;
+    Sprite        window3     = null;
+    Sprite plate =null;
+    
     Paint         backPaint   = null;
     Paint         forePaint   = null;
     int           i           = 0;
@@ -33,14 +41,29 @@ public class MainView extends SurfaceView implements Callback {
         setFocusable(true);
         getHolder().addCallback(this);
         holder = this.getHolder();
+        Point size = calculateCenterX(context);
+
+        windowWidth = size.x / 4;
+        windowHeight = size.y / 3;
         Bitmap imageTemp = BitmapFactory.decodeResource(getResources(),
-                R.drawable.window);
-        Bitmap image = Bitmap.createScaledBitmap(imageTemp, 200, 170, true);
+            R.drawable.window);
+        Bitmap image = Bitmap.createScaledBitmap(imageTemp, windowWidth, windowHeight, true);
+
+        window2 = new Sprite(image, windowWidth, windowHeight);
+        window2.setPosition(centerX - windowWidth / 2, 20);
+        window1 = new Sprite(image, windowWidth, windowHeight);
+        window1.setPosition(centerX - windowWidth / 2 - (windowWidth + 30),
+            20 + windowHeight / 2);
+        window3 = new Sprite(image, windowWidth, windowHeight);
+        window3.setPosition(centerX - windowWidth / 2 + (windowWidth + 30),
+            20 + windowHeight / 2);
         
-        // window2 = new Window(image, context, Position.center);
-        window1 = new Sprite(image, 100, 100);
-        
-        // window3 = new Window(image, context, Position.right);
+        imageTemp = BitmapFactory.decodeResource(getResources(),
+            R.drawable.plate);
+        image = Bitmap.createScaledBitmap(imageTemp, windowWidth/3, windowHeight/3, true);
+        plate = new Sprite(image, windowWidth/3, windowHeight/3);
+        plate.setPosition(centerX - windowWidth / 6,
+            size.y-windowHeight/3-20);
         backPaint = new Paint();
         backPaint.setColor(Color.BLACK);
         
@@ -84,9 +107,10 @@ public class MainView extends SurfaceView implements Callback {
     public void paint(Canvas canvas) {
         canvas.drawRect(0, 0, getWidth(), getHeight(), backPaint);
         window1.paint(canvas, forePaint);
-        window1.move(i++, i++);
-        // window2.paint(canvas, forePaint);
-        // window3.paint(canvas, forePaint);
+        window2.paint(canvas, forePaint);
+        window3.paint(canvas, forePaint);
+        plate.paint(canvas, forePaint);
+       // plate.move(x, y);
     }
     
     @Override
@@ -107,6 +131,13 @@ public class MainView extends SurfaceView implements Callback {
         // TODO Auto-generated method stub
         stop();
         
+    }
+    public Point calculateCenterX(Context context) {
+        Point size = new Point();
+        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
+            .getDefaultDisplay().getSize(size);
+        centerX = size.x / 2;
+        return size;
     }
     
 }
