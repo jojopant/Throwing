@@ -16,7 +16,7 @@ public class Heart extends Thread implements HeartBeatListener {
     private ArrayList<MicThrowGameEvent> events;
     MicThrowGameEventHandler             handler;
     
-    public Heart(MainView view) {// Looper.prepare();
+    public Heart(MainView view) {
         handler = new MicThrowGameEventHandler();
         body = view;
         events = new ArrayList<MicThrowGameEvent>();
@@ -25,9 +25,9 @@ public class Heart extends Thread implements HeartBeatListener {
     @Override
     public void run() {
         super.run();
+        initScene();
         while (beating) {
             dispatchEvents();
-            doDraw();
             try {
                 Thread.sleep(1000 / 60);
             } catch (InterruptedException e) {
@@ -37,15 +37,19 @@ public class Heart extends Thread implements HeartBeatListener {
     }
     
     private void dispatchEvents() {
-        ArrayList<MicThrowGameEvent> removableEvents = new ArrayList<MicThrowGameEvent>();
-        for (MicThrowGameEvent event : events) {
-            // TODO dispatch event to handler
-            // TODO delete dispatched event from events
-            Log.i("dj", "dispatchEvents");
-            dispatchEvent(event);
-            removableEvents.add(event);
-        }
-        events.removeAll(removableEvents);
+        //        ArrayList<MicThrowGameEvent> removableEvents = new ArrayList<MicThrowGameEvent>();
+        //        for (MicThrowGameEvent event : events) {
+        // TODO dispatch event to handler
+        // TODO delete dispatched event from events
+        Log.i("dj", "dispatchEvents");
+        //            dispatchEvent(event);
+        //            removableEvents.add(event);
+        //        }
+        //        events.removeAll(removableEvents);
+        Message msg = new Message();
+        msg.what = MicThrowGameEvent.event_test_move;
+        msg.obj = body.plate;
+        handler.sendMessage(msg);
     }
     
     private void dispatchEvent(MicThrowGameEvent event) {
@@ -55,14 +59,12 @@ public class Heart extends Thread implements HeartBeatListener {
         handler.sendMessage(msg);
     }
     
-    public void doDraw() {
+    public void initScene() {
         body.doDraw();
     }
     
     @Override
     public void onTouch(MotionEvent event) {
-        // TODO using event to build MicThrowGameEvents
-        Log.i("dj", "Heard::onTouch");
         events.add(getMicEvent(event));
     }
     

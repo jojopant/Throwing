@@ -23,10 +23,10 @@ public class MainView extends SurfaceView implements Callback {
     int           centerX;
     int           windowWidth;
     int           windowHeight;
-    Sprite        window1     = null;
-    Sprite        window2     = null;
-    Sprite        window3     = null;
-    Sprite        plate       = null;
+    public Sprite window1     = null;
+    public Sprite window2     = null;
+    public Sprite window3     = null;
+    public Sprite plate       = null;
     Paint         backPaint   = null;
     Paint         forePaint   = null;
     int           i           = 0;
