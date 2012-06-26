@@ -33,10 +33,10 @@ public class MicThrowGameEvent {
     }
     
     private void parseDownEvent(MainView body, MotionEvent event) {
-        this.event = event_test_move;
-        //        xy = new Point();
-        //        xy.x = 10;
-        //        xy.y = 10;
+        this.event = event_move_left_pie;
+        xy = new Point();
+        xy.x = 10;
+        xy.y = 10;
         sprite = body.plate;
     }
     

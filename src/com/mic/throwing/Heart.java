@@ -25,9 +25,9 @@ public class Heart extends Thread implements HeartBeatListener {
     @Override
     public void run() {
         super.run();
-        initScene();
         while (beating) {
             dispatchEvents();
+            doDraw();
             try {
                 Thread.sleep(1000 / 60);
             } catch (InterruptedException e) {
@@ -37,19 +37,16 @@ public class Heart extends Thread implements HeartBeatListener {
     }
     
     private void dispatchEvents() {
-        //        ArrayList<MicThrowGameEvent> removableEvents = new ArrayList<MicThrowGameEvent>();
-        //        for (MicThrowGameEvent event : events) {
-        // TODO dispatch event to handler
-        // TODO delete dispatched event from events
-        Log.i("dj", "dispatchEvents");
-        //            dispatchEvent(event);
-        //            removableEvents.add(event);
-        //        }
-        //        events.removeAll(removableEvents);
-        Message msg = new Message();
-        msg.what = MicThrowGameEvent.event_test_move;
-        msg.obj = body.plate;
-        handler.sendMessage(msg);
+        ArrayList<MicThrowGameEvent> removableEvents = new ArrayList<MicThrowGameEvent>();
+        for (MicThrowGameEvent event : events) {
+            // TODO dispatch event to handler
+            // TODO delete dispatched event from events
+            Log.i("dj", "dispatchEvents");
+            dispatchEvent(event);
+            removableEvents.add(event);
+        }
+        events.removeAll(removableEvents);
+        
     }
     
     private void dispatchEvent(MicThrowGameEvent event) {
@@ -59,7 +56,7 @@ public class Heart extends Thread implements HeartBeatListener {
         handler.sendMessage(msg);
     }
     
-    public void initScene() {
+    public void doDraw() {
         body.doDraw();
     }
     
