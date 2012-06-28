@@ -25,13 +25,21 @@ public class Heart extends Thread implements HeartBeatListener {
     @Override
     public void run() {
         super.run();
+        long ticksPS = 1000 / 60;
+        long startTime;
+        long sleepTime;
         while (beating) {
+            startTime = System.currentTimeMillis();
             dispatchEvents();
             doDraw();
+            sleepTime = ticksPS - (System.currentTimeMillis() - startTime);
             try {
-                Thread.sleep(1000 / 60);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                if (sleepTime > 0) {
+                    sleep(sleepTime);
+                } else {
+                    sleep(10);
+                }
+            } catch (Exception e) {
             }
         }
     }
@@ -46,7 +54,6 @@ public class Heart extends Thread implements HeartBeatListener {
             removableEvents.add(event);
         }
         events.removeAll(removableEvents);
-        
     }
     
     private void dispatchEvent(MicThrowGameEvent event) {
